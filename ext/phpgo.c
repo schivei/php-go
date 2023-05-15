@@ -31,10 +31,15 @@ ZEND_DECLARE_MODULE_GLOBALS(phpgo)
 
 int le_phpgo;
 
+ZEND_BEGIN_ARG_INFO(arginfo_phpgo_load, 0)
+    ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+    ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
 /* {{{ phpgo_functions[]
  */
 const zend_function_entry phpgo_functions[] = {
-	PHP_FE(phpgo_load,	NULL)
+	PHP_FE(phpgo_load, arginfo_phpgo_load)
 	PHP_FE_END
 };
 /* }}} */
