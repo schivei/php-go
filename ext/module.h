@@ -19,6 +19,9 @@
 #ifndef MODULE_H
 #define MODULE_H
 
+#define TSRMLS_DC
+#define TSRMLS_CC
+
 #include "php.h"
 #include "phpgo.h"
 #include "php_phpgo.h"
