@@ -16,6 +16,17 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.0"
+        "php": ">=8.0"
+    },
+    "scripts": {
+        "post-install-cmd": "go install ../php-go && php-go",
+        "post-update-cmd": "go install ../php-go && php-go"
+    },
+    "version": "0.1.0",
+    "extra": {
+        "go": {
+            "package": "github.com/schivei/php-go",
+            "version": "v0.1.0"
+        }
     }
 }

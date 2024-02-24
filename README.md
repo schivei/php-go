@@ -21,6 +21,11 @@ Then you can run:
 go install github.com/schivei/php-go
 ```
 
+NOTES:
+- You need to have GoLang installed in your machine.
+- php-go also requires PHP development headers to be installed.
+- php-go needs CGO to be enabled.
+
 When this is finished, go to your project directory and run:
 
 ```
@@ -40,6 +45,14 @@ Then copy the resulting ``phpgo.so`` to your PHP extensions directory and add ``
 Alternatively, you can use ``phpgo.so`` from the ``bin`` directory.
 
 Note: php-go supports PHP 8+ (non-ZTS).
+
+Also, you can use php composer to install this package:
+
+```
+composer require schivei/php-go
+```
+
+It will install the package and the extension will be placed in the ``vendor/schivei/php-go`` directory.
 
 ## Usage
 
