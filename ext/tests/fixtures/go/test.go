@@ -1,6 +1,6 @@
 package main
 
-import "github.com/arnaud-lb/php-go/php-go"
+import "github.com/schivei/php-go/php"
 
 var _ = php.Export("test", map[string]interface{}{
 	"boolAnd": func(a, b bool) bool {

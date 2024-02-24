@@ -1,7 +1,5 @@
 # php-go
 
-![Supported PHP versions: 7.x](https://img.shields.io/badge/php-7.x-blue.svg) [![Build Status](https://travis-ci.org/arnaud-lb/php-go.svg)](https://travis-ci.org/arnaud-lb/php-go)
-
 php-go allows to call Go code from PHP, with minimal code boilerplate.
 
 ## Goals:
@@ -10,38 +8,38 @@ php-go allows to call Go code from PHP, with minimal code boilerplate.
 - Be reliable and always safe
 - Deploy Go code without re-building the PHP extension
 
-## TODO:
+## DOING:
 
-- [x] Support exporting functions
-- [x] Support all scalar types in arguments and return values
-- [ ] Support exporting constants
-- [ ] Support slices, maps (copying)
-- [ ] Support objects (proxying)
+- [X] Support GoLang Http Requests
 
 ## Install
 
-You can download this package using "go get". When using "go get", you'll have to [set your $GOPATH](https://github.com/golang/go/wiki/SettingGOPATH) first.
+You can download this package using "go install".
 Then you can run:
 
 ```
-go get github.com/arnaud-lb/php-go
+go install github.com/schivei/php-go
 ```
 
-When this is finished, change directories to the included "ext" folder:
+When this is finished, go to your project directory and run:
 
 ```
-cd $GOPATH/src/github.com/arnaud-lb/php-go/ext
+php-go
 ```
 
-Then configure and make the binary:
+You also can pass binary directory as argument:
 
 ```
-phpize && ./configure && make && sudo make install
+php-go /path/to/bin
 ```
 
-Then add ``extension=phpgo.so`` to your php.ini, or call php with ``-dextension=phpgo.so``
+The extension will be built and placed in the current directory.
 
-Note: php-go supports PHP 7 (non-ZTS). For PHP 5, use the php5 branch.
+Then copy the resulting ``phpgo.so`` to your PHP extensions directory and add ``extension=phpgo.so`` to your php.ini.
+
+Alternatively, you can use ``phpgo.so`` from the ``bin`` directory.
+
+Note: php-go supports PHP 8+ (non-ZTS).
 
 ## Usage
 
@@ -52,7 +50,7 @@ package main
 
 import (
   "strings"
-  "github.com/arnaud-lb/php-go/php-go"
+  "github.com/schivei/php-go/php"
 )
 
 // call php.Export() for its side effects
@@ -79,9 +77,6 @@ Note: Go **requires** that the module be a _main_ package with a _main_ function
 ``` php
 // Create a class from the Go module, and return an instance of it
 $module = phpgo_load("/path/to/example.so", "example");
-
-// Display the methods defined by the class
-ReflectionClass::export($module);
 
 // Call some method
 $module->toUpper("foo");

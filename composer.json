@@ -1,0 +1,21 @@
+{
+    "name": "schivei/php-go",
+    "description": "php-go allows to call Go code from PHP, with minimal code boilerplate.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Schivei\\PhpGo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Elton Schivei Costa",
+            "email": "costa@elton.schivei.nom.br"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0"
+    }
+}
