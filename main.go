@@ -59,14 +59,22 @@ func main() {
 	pkgPath := exec.Command("go", "list", "-f", "{{.Dir}}", pkgName)
 	pkgPath.Env = append(pkgPath.Env, "CGO_ENABLED=1")
 	pkgPath.Env = append(pkgPath.Env, "GO111MODULE=on")
+	pkgPath.Env = append(pkgPath.Env, os.Environ()...)
 
 	var outb bytes.Buffer
 	pkgPath.Stdout = &outb
+	var stderr bytes.Buffer
+	pkgPath.Stderr = &stderr
 
 	err := pkgPath.Run()
 
 	if err != nil {
-		panic(err)
+		if stderr.Len() == 0 {
+			panic(err)
+		}
+
+		msg := stderr.String()
+		panic(errors.Join(err, errors.New(msg)))
 	}
 
 	pkgDir := outb.String()
@@ -129,6 +137,7 @@ func main() {
 	phpize := exec.Command("phpize")
 	phpize.Dir = extPath
 	phpize.Env = append(phpize.Env, "CGO_ENABLED=1")
+	phpize.Env = append(phpize.Env, "GO111MODULE=on")
 	phpize.Env = append(phpize.Env, os.Environ()...)
 	phpize.Stdout = os.Stdout
 	phpize.Stderr = os.Stderr
@@ -141,6 +150,7 @@ func main() {
 	configure := exec.Command("./configure")
 	configure.Dir = extPath
 	configure.Env = append(configure.Env, "CGO_ENABLED=1")
+	configure.Env = append(configure.Env, "GO111MODULE=on")
 	configure.Env = append(configure.Env, os.Environ()...)
 	configure.Stdout = os.Stdout
 	configure.Stderr = os.Stderr
@@ -163,6 +173,7 @@ func main() {
 	cmake := exec.Command("make")
 	cmake.Dir = extPath
 	cmake.Env = append(cmake.Env, "CGO_ENABLED=1")
+	cmake.Env = append(cmake.Env, "GO111MODULE=on")
 	cmake.Env = append(cmake.Env, os.Environ()...)
 	cmake.Stdout = os.Stdout
 	cmake.Stderr = os.Stderr
