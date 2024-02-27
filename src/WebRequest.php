@@ -29,7 +29,7 @@ class WebRequest {
     }
 
     public function serialize() {
-        return json_encode($this JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        return json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     /**
