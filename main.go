@@ -7,6 +7,8 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+
+	_ "github.com/schivei/php-go/php"
 )
 
 func makeClean(extDir string) {
@@ -31,7 +33,7 @@ func cleanAll(extDir string) {
 	makeClean(extDir)
 	phpizeClean(extDir)
 
-	_ = os.Remove(extDir + "/tests/fixtures/go/test.so")
+	_ = os.Remove(extDir + "/tests/fixtures/golang/test.so")
 
 	files, err := os.ReadDir(extDir)
 	if err != nil {
@@ -189,7 +191,7 @@ func main() {
 	}
 
 	makeTestFixture := exec.Command("make")
-	makeTestFixture.Dir = extPath + "/tests/fixtures/go"
+	makeTestFixture.Dir = extPath + "/tests/fixtures/golang"
 	makeTestFixture.Env = append(makeTestFixture.Env, "CGO_ENABLED=1")
 	makeTestFixture.Env = append(makeTestFixture.Env, os.Environ()...)
 	makeTestFixture.Stdout = os.Stdout

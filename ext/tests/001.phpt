@@ -2,7 +2,7 @@
 Test load
 --FILE--
 <?php 
-$module = phpgo_load(__DIR__ . "/fixtures/go/test.so", "test");
+$module = phpgo_load(__DIR__ . "/fixtures/golang/test.so", "test");
 
 echo "boolAnd:\n";
 var_dump($module->boolAnd(true, true));
