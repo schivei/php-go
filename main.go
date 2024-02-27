@@ -118,6 +118,11 @@ func main() {
 		log.Panicln("The path", destPath, "is not a directory")
 	}
 
+	// if destPath ends with a slash, remove it
+	if destPath[len(destPath)-1] == '/' {
+		destPath = destPath[:len(destPath)-1]
+	}
+
 	destPath = destPath + "/phpgo.so"
 
 	log.Println("The destination path is", destPath)
