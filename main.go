@@ -190,28 +190,32 @@ func main() {
 		panic(err)
 	}
 
-	makeTestFixture := exec.Command("make")
-	makeTestFixture.Dir = extPath + "/tests/fixtures/golang"
-	makeTestFixture.Env = append(makeTestFixture.Env, "CGO_ENABLED=1")
-	makeTestFixture.Env = append(makeTestFixture.Env, os.Environ()...)
-	makeTestFixture.Stdout = os.Stdout
-	makeTestFixture.Stderr = os.Stderr
-	err = makeTestFixture.Run()
+	fixturesPath := extPath + "/tests/fixtures/golang"
 
-	if err != nil {
-		panic(err)
-	}
+	if _, err = os.Stat(fixturesPath); !os.IsNotExist(err) {
+		makeTestFixture := exec.Command("make")
+		makeTestFixture.Dir = extPath + "/tests/fixtures/golang"
+		makeTestFixture.Env = append(makeTestFixture.Env, "CGO_ENABLED=1")
+		makeTestFixture.Env = append(makeTestFixture.Env, os.Environ()...)
+		makeTestFixture.Stdout = os.Stdout
+		makeTestFixture.Stderr = os.Stderr
+		err = makeTestFixture.Run()
 
-	makeTest := exec.Command("make", "test")
-	makeTest.Dir = extPath
-	makeTest.Env = append(makeTest.Env, "CGO_ENABLED=1")
-	makeTest.Env = append(makeTest.Env, os.Environ()...)
-	makeTest.Stdout = os.Stdout
-	makeTest.Stderr = os.Stderr
-	err = makeTest.Run()
+		if err != nil {
+			panic(err)
+		}
 
-	if err != nil {
-		panic(err)
+		makeTest := exec.Command("make", "test")
+		makeTest.Dir = extPath
+		makeTest.Env = append(makeTest.Env, "CGO_ENABLED=1")
+		makeTest.Env = append(makeTest.Env, os.Environ()...)
+		makeTest.Stdout = os.Stdout
+		makeTest.Stderr = os.Stderr
+		err = makeTest.Run()
+
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	makeInstall := exec.Command("make", "install")
