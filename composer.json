@@ -18,15 +18,5 @@
     "require": {
         "php": ">=8.0"
     },
-    "scripts": {
-        "post-install-cmd": "go install ../php-go && php-go",
-        "post-update-cmd": "go install ../php-go && php-go"
-    },
-    "version": "1.0.4",
-    "extra": {
-        "go": {
-            "package": "github.com/schivei/php-go",
-            "version": "v1.0.4"
-        }
-    }
+    "version": "1.0.5"
 }

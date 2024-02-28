@@ -34,6 +34,18 @@ class WebRequest {
         $this->body = file_get_contents('php://input');
         $this->form = $_POST;
         $this->files = $_FILES;
+
+        if (count($this->files) === 0) {
+            $this->files = null;
+        }
+
+        if (count($this->form) === 0) {
+            $this->form = null;
+        }
+
+        if (count($this->headers) === 0) {
+            $this->headers = null;
+        }
     }
 
     public function serialize() {
