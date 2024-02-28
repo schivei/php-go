@@ -13,9 +13,17 @@ class WebRequest {
     private $module;
 
     public function __construct(string $module, string $name) {
+        if (!extension_loaded('phpgo')) {
+            throw new \Exception("phpgo extension not loaded");
+        }
+
+        if (!function_exists('phpgo_load')) {
+            throw new \Exception("phpgo_load function not found");
+        }
+
         $this->module = \phpgo_load($module, $name);
-        if ($this->module === NULL) {
-            throw new \Exception("Module not found");
+        if (!$this->module) {
+            throw new \Exception("Module [$name::$module] not found");
         }
 
         $this->method = $_SERVER['REQUEST_METHOD'];
@@ -34,11 +42,11 @@ class WebRequest {
 
     /**
      * Run the module with the serialized request
-     * @return WebResponse
+     * @return \Schivei\PhpGo\WebResponse
      */
-    public function run() WebResponse {
+    public function run() {
         $jsonResponse = $this->module->run($this->serialize());
 
-        return WebResponse::deserialize($jsonResponse);
+        return \Schivei\PhpGo\WebResponse::deserialize($jsonResponse);
     }
 }
